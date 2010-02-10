@@ -13,7 +13,7 @@ get '/home' do
   
   @products = ShopifyAPI::Product.find(:all, :params => {:limit => 3})
   @orders   = ShopifyAPI::Order.find(:all, :params => {:limit => 3, :order => "created_at DESC" })
-  erb :index
+  haml :index
 end
 
 get '/design' do
