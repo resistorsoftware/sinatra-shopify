@@ -36,7 +36,7 @@ module Sinatra
       else
         ShopifyAPI::Session.setup(
           :api_key => ENV['SHOPIFY_API_KEY'],
-          :secret => ENV['SHOPIFY_SECRET_KEY']
+          :secret => ENV['SHOPIFY_API_SECRET']
         )
       end
       
