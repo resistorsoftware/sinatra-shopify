@@ -30,7 +30,7 @@ module Sinatra
 
       # load config file credentials
       config = File.dirname(__FILE__) + "/shopify.yml"
-      credentials = YAML.load(File.read(config))
+      credentials = YAML.load(File.read(config)) unless config.nil?
       #ShopifyAPI::Session.setup(credentials)
       
       ShopifyAPI::Session.setup(
