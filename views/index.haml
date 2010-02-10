@@ -1,14 +1,15 @@
 #sidebar
   %h3 Where to start
-  %h4 Check out the 
-    %code.dashboard dashboard_controller
+  %h4 
+    Check out the 
+    %code.dashboard
+      dashboard_controller
 
   %p.description
     The controller in this demo application fetches the latest 3 orders and products and makes them available as instance variables
     %code.colored= @orders
     and
     %code.colored= @products
-    .
 
 #orders
   %h2 Your recent orders
@@ -17,32 +18,34 @@
   - else 
     %ul
       - @orders.each do |order|
-      %li
-        .order.box
-          .wrapper
-            %strong
-              %a{:href => "http://#{current_shop.url}/admin/orders/#{order.id}"}= order.name
+        %li
+          .order.box
+            .wrapper
+              %strong
+                %a{:href => "http://#{current_shop.url}/admin/orders/#{order.id}"}= order.name
             
-            %span.price= order.total_price + order.currency
-            %span.highlight= order.financial_status
-            by
-             %span.note= order.billing_address.name
+              %span.price= order.total_price + order.currency
+              %span.highlight= order.financial_status
+              by
+              %span.note= order.billing_address.name
 
-  %h2 Some of your products
-    - if @products.blank?
+%h2
+  Some of your products
+  - if @products.blank?
     %em.note There are no products in your store.
-    - else
+  - else
     - @products.each do |product|
-      .product box
+      .product.box
         .wrapper
-          %img{:src => "{#product.images.first.small rescue ''"}
-        %h4
-          %a{:href => "http://#{current_shop.url}/admin/products/#{product.id}"}= product.title
-
-        %p.price= product.price_range + current_shop.shop.currency
-        %p= product.product_type
-          %span.note type
-        %p= product.vendor
-          %span.note vendor
-      
-        %div{:style => "clear:left"}
+          %img{:src => "#{product.images.first.small rescue ''}"}
+          %h4
+            %a{:href => "http://#{current_shop.url}/admin/products/#{product.id}"}= product.title
+          %p.price= product.price_range + current_shop.shop.currency
+          %p
+            = product.product_type
+            %span.note
+              type
+          %p
+            = product.vendor
+            %span.note
+              vendor
