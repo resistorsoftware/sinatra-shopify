@@ -29,14 +29,16 @@ module Sinatra
       app.enable :sessions
 
       # load config file credentials
-      config = File.dirname(__FILE__) + "/shopify.yml"
-      credentials = YAML.load(File.read(config)) unless config.nil?
-      #ShopifyAPI::Session.setup(credentials)
-      
-      ShopifyAPI::Session.setup(
-        :api_key => ENV['SHOPIFY_API_KEY'],
-        :secret => ENV['SHOPIFY_SECRET_KEY']
-      )
+      if File.exist?(File.dirname(__FILE__) + "/shopify.yml")
+        config = File.dirname(__FILE__) + "/shopify.yml"
+        credentials = YAML.load(File.read(config))
+        ShopifyAPI::Session.setup(credentials)
+      else
+        ShopifyAPI::Session.setup(
+          :api_key => ENV['SHOPIFY_API_KEY'],
+          :secret => ENV['SHOPIFY_SECRET_KEY']
+        )
+      end
       
       app.get '/login' do
         erb :login
